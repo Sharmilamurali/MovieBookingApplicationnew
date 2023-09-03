@@ -39,7 +39,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.cors().and().csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("{userName}/forgot","/register","/signIn","/moviebooking/search/**","/moviebooking/all","/v3/api-docs/**","/swagger-ui/**").permitAll()
+                .requestMatchers("{userName}/forgot","/register","/signIn","/moviebooking/search/**","/moviebooking/all","/v3/api-docs/**","/swagger-ui/**","https://moviebookingapplicationbackendnew.azurewebsites.net/**").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/**")
                 .authenticated().and()
@@ -48,6 +48,11 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+//    	return http
+//		.csrf().disable().authorizeRequests().requestMatchers("/**").permitAll().anyRequest().authenticated().and()
+//				.exceptionHandling().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//		.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+//		 .build();
     }
     @Bean
     public AuthenticationProvider authenticationProvider(){
